@@ -4,7 +4,7 @@ define([
 
     'use strict';
 
-    function TableValidator() {
+    function StreamingValidator() {
 
         this.errors = {
             plugin_not_exists: "the output plugin does not exists",
@@ -13,32 +13,15 @@ define([
             configuration_wrong: "please check the configuration"
         };
 
+
         this.languagesAdmitted = {
             EN: true,
             FR: true,
             ES: true
         };
-        this.CONFIG = {
-
-            "resource": {
-                "metadata": {},
-                "data": []
-            },
-            "input": {
-                "plugin": "inputTable",
-                "config": {}
-            },
-            "output": {
-                "plugin": "outputTable",
-                "config": {
-                    "lang": "EN"
-                }
-            }
-        };
-
     }
 
-    TableValidator.prototype.process = function (config) {
+    StreamingValidator.prototype.process = function (config) {
         /* Extend default configuration. */
         if (this.validateConfig(config)) {
             this.CONFIG = $.extend(true, {}, this.CONFIG, config);
@@ -47,9 +30,9 @@ define([
     };
 
 
-    TableValidator.prototype.validateConfig = function (config) {
+    StreamingValidator.prototype.validateConfig = function (config) {
 
-        var result = false;
+      /*  var result = false;
         // check data and metadata
         if (typeof config.input !== 'undefined' && config.input != null
             && config.resource && config.resource.metadata && config.resource.metadata.uid
@@ -61,9 +44,10 @@ define([
             throw this.errors.data_or_md_not_exists;
         }
 
-        return result;
+        return result;*/ //TODO
+        return true;
     };
 
 
-    return TableValidator;
+    return StreamingValidator;
 });

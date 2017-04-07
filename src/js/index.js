@@ -3,14 +3,18 @@ define([
     "fenix-ui-bridge",
     "./validators/metadata",
     "./validators/table",
+    "./validators/streaming",
+    "./validators/flow",
     "loglevel"
-], function ($, Bridge, Metadata, Table, log) {
+], function ($, Bridge, Metadata, Table, Streaming,Flow,log) {
 
     'use strict';
 
     var PluginRegistry = {
         'metadata': Metadata,
-        'table': Table
+        'table': Table,
+        'streaming':Streaming,
+        'flow':Flow
     };
 
     function Reports(o) {
@@ -65,9 +69,26 @@ define([
 
         this._trigger("export.start", payload);
 
-        return this.bridge.export(payload).then(
-            $.proxy(this._fulfillRequest, this),
-            $.proxy(this._rejectResponse, this));
+        switch (obj.format) {
+
+            case "streaming":
+                return this.bridge.exportStreaming(payload).then(
+                    $.proxy(this._fulfillRequest, this),
+                    $.proxy(this._rejectResponse, this));
+                break;
+            case "flow":
+                return this.bridge.exportFlow(payload).then(
+                    $.proxy(this._fulfillRequest, this),
+                    $.proxy(this._rejectResponse, this));
+                break;
+            case "table":
+            case "metadata" :
+                return this.bridge.export(payload).then(
+                    $.proxy(this._fulfillRequest, this),
+                    $.proxy(this._rejectResponse, this));
+
+                break;
+        }
     };
 
     // end of API
@@ -102,7 +123,10 @@ define([
         log.info("Resource export success");
         log.info(value);
 
-        var locUrl = value.url + '?' + value.data.substr(value.data.indexOf('id'));
+        var locUrl =
+            (this._$pluginChosen.getName!== 'table' && this._$pluginChosen.getName!== 'metadata')?
+            value.url+'/'+value.data :
+            value.url + '?' + value.data.substr(value.data.indexOf('id'));
 
         window.location = locUrl;
 

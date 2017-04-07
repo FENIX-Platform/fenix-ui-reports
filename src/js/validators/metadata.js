@@ -13,6 +13,7 @@ define([
             configuration_wrong: "please check the configuration"
         };
 
+
         this.languagesAdmitted = {
             EN: true,
             FR: true,
@@ -74,6 +75,7 @@ define([
 
         return result;
     };
+
 
     return MetadataValidator;
 });
