@@ -20,6 +20,8 @@ define([
             ES: true
         };
 
+        this.name = "metadata";
+
         this.CONFIG = {
             "resource": {
                 "metadata": {},
@@ -74,6 +76,11 @@ define([
         }
 
         return result;
+    };
+
+
+    MetadataValidator.prototype.getName = function () {
+        return this.name;
     };
 
 

@@ -27,7 +27,7 @@
   "author": "FENIX team (http://fenix.fao.org/)",
   "license": "GPL-2.0",
   "dependencies": {
-    "fenix-ui-bridge": "^1.0.0-beta.6",
+    "fenix-ui-bridge": "^1.0.0-beta.15",
     "jquery": "^3.1.0",
     "loglevel": "^1.4.1"
   },

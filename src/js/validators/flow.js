@@ -13,6 +13,7 @@ define([
             configuration_wrong: "please check the configuration"
         };
 
+        this.name = "streaming";
 
         this.languagesAdmitted = {
             EN: true,
@@ -46,6 +47,10 @@ define([
 
          return result;*/ //TODO
         return true;
+    };
+
+    FlowValidator.prototype.getName = function () {
+        return this.name;
     };
 
 

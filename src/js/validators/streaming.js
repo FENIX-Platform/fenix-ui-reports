@@ -14,6 +14,8 @@ define([
         };
 
 
+        this.name = "streaming";
+
         this.languagesAdmitted = {
             EN: true,
             FR: true,
@@ -47,6 +49,11 @@ define([
         return result;*/ //TODO
         return true;
     };
+
+    StreamingValidator.prototype.getName = function () {
+        return this.name;
+    };
+
 
 
     return StreamingValidator;

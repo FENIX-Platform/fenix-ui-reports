@@ -1,0 +1,7 @@
+{
+  "uid" : "indicator20",
+  "version" : null,
+  "outConfig" : {
+    "plugin" : "outputCSV"
+  }
+}

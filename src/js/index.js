@@ -31,7 +31,8 @@ define([
 
         this.bridge = new Bridge({
             cache: this.cache,
-            environment: this.environment
+            environment: this.environment,
+            params: {language:"EN"}
         })
     }
 
@@ -70,6 +71,7 @@ define([
         this._trigger("export.start", payload);
 
         switch (obj.format) {
+
 
             case "streaming":
                 return this.bridge.exportStreaming(payload).then(
@@ -120,16 +122,16 @@ define([
 
         this._trigger("export.success");
 
+
         log.info("Resource export success");
         log.info(value);
 
         var locUrl =
-            (this._$pluginChosen.getName!== 'table' && this._$pluginChosen.getName!== 'metadata')?
-            value.url+'/'+value.data :
+            (this._$pluginChosen.getName()!== 'table' && this._$pluginChosen.getName()!== 'metadata')?
+            value.url.substr(0,value.url.indexOf('export')+'export'.length) +'/'+value.data :
             value.url + '?' + value.data.substr(value.data.indexOf('id'));
 
         window.location = locUrl;
-
     };
 
     return Reports;

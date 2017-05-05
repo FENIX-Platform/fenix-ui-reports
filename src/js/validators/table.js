@@ -13,6 +13,8 @@ define([
             configuration_wrong: "please check the configuration"
         };
 
+        this.name = "table";
+
         this.languagesAdmitted = {
             EN: true,
             FR: true,
@@ -63,6 +65,11 @@ define([
 
         return result;
     };
+
+
+    TableValidator.prototype.getName = function () {
+        return this.name;
+    }
 
 
     return TableValidator;

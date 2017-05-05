@@ -3,8 +3,10 @@ define([
     'jquery',
     'underscore',
     '../../../src/js/index',
-    '../json/uneca_population.json'
-], function (log, $, _, Reports, Model) {
+    '../json/uneca_population.json',
+    '../json/flow_wiews.json',
+    '../json/streaming_wiews.json'
+], function (log, $, _, Reports, Model, Flow, Streaming) {
 
     'use strict';
 
@@ -12,9 +14,11 @@ define([
         lang = "EN",
         cache = false,
         model = Model,
-        uid = "UNECA_Health",
+        flow_model = Flow,
+        streaming_model = Streaming,
+        uid = "indicator20",
         template = "fao",
-        environment = "production"; //"develop" || "production",
+        environment = "demo"; //"develop" || "production",
 
     function Dev() {
         console.clear();
@@ -117,6 +121,24 @@ define([
                 });
 
                 break;
+
+            case "flow" :
+
+                this.report.export ({
+                    format : "flow",
+                    config : flow_model
+                });
+                break;
+
+
+            case "streaming" :
+                this.report.export ({
+                    format : "streaming",
+                    config : streaming_model
+                });
+                break;
+
+
             default:
                 alert(format + " is not valid format");
         }

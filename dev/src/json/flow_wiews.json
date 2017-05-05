@@ -1,0 +1,127 @@
+{
+  "outConfig": {
+    "plugin": "outputCSV"
+  },
+  "flow": [
+    {
+      "name": "wiews_area_filter",
+      "sid": [
+        {
+          "uid": "wiews_region_mapping"
+        },
+        {
+          "uid": "wiews_region_countries"
+        }
+      ],
+      "rid": {
+        "uid": "area_selection"
+      },
+      "result": false,
+      "parameters": {
+        "filter": {
+          "m49": {
+            "codes": [
+              {
+                "uid": "wiews_m49_regions",
+                "codes": [
+                  "WITC",
+                  "1"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "sid": [
+        {
+          "uid": "indicator20"
+        },
+        {
+          "uid": "area_selection"
+        }
+      ],
+      "name": "filter",
+      "parameters": {
+        "columns": [
+          "domain",
+          "rank",
+          "wiews_region",
+          "indicator",
+          "element",
+          "biologicalAccessionId",
+          "iteration",
+          "stakeholder",
+          "value",
+          "um"
+        ],
+        "rows": {
+          "iteration": {
+            "codes": [
+              {
+                "uid": "wiews_iteration",
+                "codes": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          "wiews_region": {
+            "variable": "required_countries"
+          },
+          "element": {
+            "codes": [
+              {
+                "uid": "wiews_elements",
+                "codes": [
+                  "ind",
+                  "nfp",
+                  "nfpa",
+                  "stk"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "addcolumn",
+      "index": -2,
+      "parameters": {
+        "column": {
+          "dataType": "text",
+          "id": "indicator_label",
+          "title": {
+            "EN": "Indicator"
+          }
+        },
+        "value": ""
+      }
+    },
+    {
+      "name": "select",
+      "parameters": {
+        "values": {
+          "iteration": null,
+          "domain": null,
+          "biologicalAccessionId": null,
+          "rank": null,
+          "wiews_region": null,
+          "value": null,
+          "um": null,
+          "indicator_label": "case when element = 'stk' then 'Indicator' else element end"
+        }
+      }
+    },
+    {
+      "name": "order",
+      "parameters": {
+        "rank": "ASC",
+        "wiews_region": "ASC"
+      }
+    }
+  ]
+}
+
