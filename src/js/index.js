@@ -6,15 +6,15 @@ define([
     "./validators/streaming",
     "./validators/flow",
     "loglevel"
-], function ($, Bridge, Metadata, Table, Streaming,Flow,log) {
+], function ($, Bridge, Metadata, Table, Streaming, Flow, log) {
 
     'use strict';
 
     var PluginRegistry = {
         'metadata': Metadata,
         'table': Table,
-        'streaming':Streaming,
-        'flow':Flow
+        'streaming': Streaming,
+        'flow': Flow
     };
 
     function Reports(o) {
@@ -32,7 +32,7 @@ define([
         this.bridge = new Bridge({
             cache: this.cache,
             environment: this.environment,
-            params: {language:"EN"}
+            params: {language: "EN"}
         })
     }
 
@@ -58,6 +58,7 @@ define([
         log.info("Export resource");
         log.info(obj);
 
+        var params;
         if (PluginRegistry.hasOwnProperty(obj.format)) {
             log.info("format: " + obj.format);
             this._$pluginChosen = new PluginRegistry[obj.format];
@@ -70,22 +71,29 @@ define([
 
         this._trigger("export.start", payload);
 
+        if (payload.hasOwnProperty("options") && payload.options && payload.options !== null) {
+            params = payload.options;
+            delete payload.options;
+        }
+
+
         switch (obj.format) {
 
-
             case "streaming":
-                return this.bridge.exportStreaming(payload).then(
+                return this.bridge.exportStreaming(payload, params).then(
                     $.proxy(this._fulfillRequest, this),
                     $.proxy(this._rejectResponse, this));
+
                 break;
             case "flow":
-                return this.bridge.exportFlow(payload).then(
+                return this.bridge.exportFlow(payload, params).then(
                     $.proxy(this._fulfillRequest, this),
                     $.proxy(this._rejectResponse, this));
+
                 break;
             case "table":
             case "metadata" :
-                return this.bridge.export(payload).then(
+                return this.bridge.export(payload, params).then(
                     $.proxy(this._fulfillRequest, this),
                     $.proxy(this._rejectResponse, this));
 
@@ -127,8 +135,8 @@ define([
         log.info(value);
 
         var locUrl =
-            (this._$pluginChosen.getName()!== 'table' && this._$pluginChosen.getName()!== 'metadata')?
-            value.url.substr(0,value.url.indexOf('export')+'export'.length) +'/'+value.data :
+            (this._$pluginChosen.getName() !== 'table' && this._$pluginChosen.getName() !== 'metadata') ?
+            value.url.substr(0, value.url.indexOf('export') + 'export'.length) + '/' + value.data :
             value.url + '?' + value.data.substr(value.data.indexOf('id'));
 
         window.location = locUrl;

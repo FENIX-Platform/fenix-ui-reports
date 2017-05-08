@@ -122,6 +122,8 @@
         "wiews_region": "ASC"
       }
     }
-  ]
+  ],
+  "options":{
+    "params": {"maxSize":2000000}}
 }
 
