@@ -29,6 +29,8 @@ define([
 
         this.environment = opts.environment;
 
+        this.silent = opts.silent || false;
+
         this.bridge = new Bridge({
             cache: this.cache,
             environment: this.environment,
@@ -122,7 +124,7 @@ define([
         log.error("Error on resource export");
         log.error(value);
 
-        alert("Error occurred during resource export.");
+        if (!this.silent) alert("Error occurred during resource export.");
 
     };
 
@@ -136,8 +138,8 @@ define([
 
         var locUrl =
             (this._$pluginChosen.getName() !== 'table' && this._$pluginChosen.getName() !== 'metadata') ?
-            value.url.substr(0, value.url.indexOf('export') + 'export'.length) + '/' + value.data :
-            value.url + '?' + value.data.substr(value.data.indexOf('id'));
+                value.url.substr(0, value.url.indexOf('export') + 'export'.length) + '/' + value.data :
+                value.url + '?' + value.data.substr(value.data.indexOf('id'));
 
         window.location = locUrl;
     };
