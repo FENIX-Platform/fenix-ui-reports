@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-reports",
-  "version": "2.0.0-beta.7",
+  "version": "2.0.0-beta.8",
   "description": "FENIX export component",
   "main": "dist/fenix-ui-reports.min.js",
   "repository": {
@@ -27,10 +27,10 @@
   "author": "FENIX team (http://fenix.fao.org/)",
   "license": "GPL-2.0",
   "dependencies": {
-    "fenix-ui-bridge": "^1.0.0-beta.19",
-    "cross-env": "^3.1.3",
+    "cross-env": "^3.2.4",
+    "fenix-ui-bridge": "^1.0.0-beta.20",
     "jquery": "^3.2.1",
-    "loglevel": "^1.5.0"
+    "loglevel": "^1.5.1"
   },
   "devDependencies": {
     "bootstrap-loader": "^2.2.0",

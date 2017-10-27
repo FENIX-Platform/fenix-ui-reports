@@ -29,7 +29,7 @@ define([
 
         this.environment = opts.environment;
 
-        this.silent = opts.silent || false;
+        this.silent = opts.silent || false ;
 
         this.bridge = new Bridge({
             cache: this.cache,
@@ -80,25 +80,21 @@ define([
 
 
         switch (obj.format) {
-
             case "streaming":
                 return this.bridge.exportStreaming(payload, params).then(
                     $.proxy(this._fulfillRequest, this),
                     $.proxy(this._rejectResponse, this));
-
                 break;
             case "flow":
                 return this.bridge.exportFlow(payload, params).then(
                     $.proxy(this._fulfillRequest, this),
                     $.proxy(this._rejectResponse, this));
-
                 break;
             case "table":
             case "metadata" :
                 return this.bridge.export(payload, params).then(
                     $.proxy(this._fulfillRequest, this),
                     $.proxy(this._rejectResponse, this));
-
                 break;
         }
     };
