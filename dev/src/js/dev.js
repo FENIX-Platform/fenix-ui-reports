@@ -62,7 +62,8 @@ define([
 
         this.report = this._createInstance({
             environment: environment,
-            cache: cache
+            cache: cache,
+            serviceProvider: "http://mav.dev"
         });
 
         switch (format) {

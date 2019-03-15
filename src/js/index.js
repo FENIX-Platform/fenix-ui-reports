@@ -34,7 +34,8 @@ define([
         this.bridge = new Bridge({
             cache: this.cache,
             environment: this.environment,
-            params: {language: "EN"}
+            params: {language: "EN"},
+            serviceProvider: opts.serviceProvider
         })
     }
 
