@@ -136,10 +136,21 @@ define([
         var locUrl =
             (this._$pluginChosen.getName() !== 'table' && this._$pluginChosen.getName() !== 'metadata') ?
                 value.url.substr(0, value.url.indexOf('export') + 'export'.length) + '/' + value.data :
-                value.url + '?' + value.data.substr(value.data.indexOf('id'));
+                value.url + '?id=' + this._getParameterByName('id', value.data);
 
         window.location = locUrl;
+
     };
+
+    Reports.prototype._getParameterByName = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
 
     return Reports;
 });
